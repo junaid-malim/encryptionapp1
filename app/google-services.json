@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "1026164884361",
+    "firebase_url": "https://encryption-app-b8429.firebaseio.com",
+    "project_id": "encryption-app-b8429",
+    "storage_bucket": "encryption-app-b8429.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1026164884361:android:681088317a49a35c",
+        "android_client_info": {
+          "package_name": "com.encryptin.junaid.encryptionapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1026164884361-cjr5rt76b5gbu0p9boal3t2a6c6ev5nl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.encryptin.junaid.encryptionapp",
+            "certificate_hash": "2f9519d2a5ac7e3fe792c344a9c5499d5233a6b8"
+          }
+        },
+        {
+          "client_id": "1026164884361-35i0je5716591oqu7qbb95q22rbm1inv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNb7f4EZ6YT-pTMI3Yvdy0x2RhdC6bf-E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1026164884361-35i0je5716591oqu7qbb95q22rbm1inv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1026164884361:android:334ac1b28da2b143",
+        "android_client_info": {
+          "package_name": "com.encryptionapp.junaid.encryptionapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1026164884361-sg7ca85u604gfmrrge8bo93im0n756qu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.encryptionapp.junaid.encryptionapp",
+            "certificate_hash": "d34ac10ea1611ad90509525f8c413dbdf7b5fdc0"
+          }
+        },
+        {
+          "client_id": "1026164884361-35i0je5716591oqu7qbb95q22rbm1inv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNb7f4EZ6YT-pTMI3Yvdy0x2RhdC6bf-E"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1026164884361-35i0je5716591oqu7qbb95q22rbm1inv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
