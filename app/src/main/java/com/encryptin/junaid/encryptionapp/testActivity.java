@@ -1,6 +1,5 @@
 package com.encryptin.junaid.encryptionapp;
 
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,6 +30,8 @@ public class testActivity extends Activity{
 
     View view;
 
+    int bytesize;
+
     byte[] key, iv;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +52,10 @@ public class testActivity extends Activity{
         // Write image data to ByteArrayOutputStream
         ByteArrayOutputStream baos=new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-
+            byte[] toenc=baos.toByteArray();
+            bytesize=toenc.length;
         // Encrypt and save the image
-        saveFile(encrypt(key,baos.toByteArray()),"enimg.png");
+        saveFile(encrypt(key,toenc),"enimg.png");
 
     }
     public void decryptFile(View view){
@@ -115,16 +117,26 @@ public class testActivity extends Activity{
         try {
             cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             cipher.init(Cipher.DECRYPT_MODE, skeySpec, new IvParameterSpec(iv));
+
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            int len;
+            byte[] buffer = new byte[4096];
+            while ((len = cis.read(buffer, 0, buffer.length)) != -1) {
+                baos.write(buffer, 0, len);
+            }
+            baos.flush();
+            byte[] cipherByteArray = baos.toByteArray(); // get the byte array
+
             // Create CipherInputStream to read and decrypt the image data
-            cis = new CipherInputStream(fis, cipher);
+            /*cis = new CipherInputStream(fis, cipher);
             // Write encrypted image data to ByteArrayOutputStream
             ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-            byte[] data = new byte[2048];
+            byte[] data = new byte[bytesize];
             while ((cis.read(data)) != -1) {
                 buffer.write(data);
             }
             buffer.flush();
-            decryptedData = buffer.toByteArray();
+            decryptedData = buffer.toByteArray();*/
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
