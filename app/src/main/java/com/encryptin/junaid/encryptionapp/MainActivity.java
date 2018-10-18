@@ -1,11 +1,12 @@
 package com.encryptin.junaid.encryptionapp;
 
-import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,18 +16,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,9 +30,13 @@ public class MainActivity extends AppCompatActivity {
     String filePath;
     InputStream is;
     Uri picUri;
-
+    File file,encfile;
+    Encrypt_File ef;
+    Passwords passwords;
+    File op;
     ImageView getimgview;
     Button encryptin1,decryptin;
+    byte[] fileBytes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +47,6 @@ public class MainActivity extends AppCompatActivity {
         encryptin1=findViewById(R.id.encryptin);
         decryptin=findViewById(R.id.decryptin);
 
-        try {
-            jealousSky.initialize("longestPasswordEverCreatedInAllTheUniverseOrMore", "FFD7BADF2FBB1999");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
 
         getimgview.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,14 +58,49 @@ public class MainActivity extends AppCompatActivity {
         encryptin1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                File file = new File(Environment.getExternalStorageDirectory() + File.separator + "Movies", "any");
+                BufferedOutputStream bos = null;
                 try {
-                    is =getContentResolver().openInputStream(picUri);
-                    File f1=jealousSky.encryptToFile(is,"lol.jpg");
-                    getimgview.setImageBitmap(BitmapFactory.decodeFile(f1.getPath()));
-                } catch (NoSuchPaddingException | NoSuchAlgorithmException | BadPaddingException | InvalidAlgorithmParameterException | InvalidKeyException | IllegalBlockSizeException | InvalidKeySpecException | IOException e) {
+                    bos = new BufferedOutputStream(new FileOutputStream(file));
+                } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
-                Toast.makeText(MainActivity.this,"qwertyuio",Toast.LENGTH_LONG).show();
+                byte[] yourKey ="qwertyuiozxcvbnsdfghedfgh".getBytes();
+                try {
+                    byte[] filesBytes =ef.encodeFile(yourKey, ef.filetobyte(new File(filePath)));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    if (bos != null) {
+                        bos.flush();
+                        bos.close();
+                        bos.write(fileBytes);
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    op = ef.bytetofile(fileBytes);
+                } catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                Bitmap bm=BitmapFactory.decodeFile(op.getAbsolutePath());
+                getimgview.setImageBitmap(bm);
+
+                /*String password=new Passwords().generateRandomPassword(32);
+                ef = new Encrypt_File(new File(filePath));
+                try {
+                    ef.encodeFile(password.getBytes(),ef.getPlainstream());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                encfile=ef.encryptedfile;
+                getimgview.setImageBitmap();
+                Toast.makeText(MainActivity.this,"qwertyuio",Toast.LENGTH_LONG).show();*/
             }
         });
 
