@@ -41,15 +41,20 @@ public class testActivity extends Activity{
         iv=getIV();
         Toast.makeText(this,Environment.getExternalStorageDirectory().toString(),Toast.LENGTH_LONG).show();
         encryptFile(view);
+
+            decryptFile(view);
+
     }
 
     public void encryptFile(View view){
         Bitmap bitmap=BitmapFactory.decodeFile(Environment.getExternalStorageDirectory()+"/img.png");
         // Write image data to ByteArrayOutputStream
-        ByteArrayOutputStream baos=new ByteArrayOutputStream(10000);
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100,baos);
+        ByteArrayOutputStream baos=new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+
         // Encrypt and save the image
         saveFile(encrypt(key,baos.toByteArray()),"enimg.png");
+
     }
     public void decryptFile(View view){
         try {
@@ -77,7 +82,9 @@ public class testActivity extends Activity{
         finally{
             try{
 
-                fos.close();
+                if (fos != null) {
+                    fos.close();
+                }
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
