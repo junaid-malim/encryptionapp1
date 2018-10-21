@@ -27,7 +27,7 @@
         tools:srcCompat="@drawable/sign" />
 
     <Button
-        android:id="@+id/encryptin"
+        android:id="@+id/encryptbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Encrypt"
@@ -37,14 +37,14 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="132dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/decryptin"
+        app:layout_constraintEnd_toStartOf="@+id/decryptbtn"
         app:layout_constraintHorizontal_bias="0.417"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/decryptin"
+        android:id="@+id/decryptbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="decrypt"

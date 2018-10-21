@@ -17,7 +17,7 @@ class add_details {
         if(FirebaseAuth.getInstance().getCurrentUser()!=null) {
             uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         }
-        database.child(phoneNumber).child(phoneNumber).setValue(uid);
+        database.child(phoneNumber).child("uid").setValue(uid);
 
     }
 }

@@ -1,5 +1,13 @@
 package com.encryptin.junaid.encryptionapp;
 
+import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.os.Environment;
+import android.view.View;
+import android.widget.Toast;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,18 +21,8 @@ import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
-import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Bundle;
-import android.os.Environment;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
 
 public class testActivity extends Activity{
 
@@ -142,7 +140,7 @@ public class testActivity extends Activity{
         } finally {
             try {
                 fis.close();
-                cis.close();
+                 cis.close();
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -157,7 +155,7 @@ public class testActivity extends Activity{
         try {
             // Generate 256-bit key
             keyGen = KeyGenerator.getInstance("AES");
-            keyGen.init(256);
+            keyGen.init(128);
             SecretKey secretKey = keyGen.generateKey();
             dataKey=secretKey.getEncoded();
         } catch (NoSuchAlgorithmException e) {

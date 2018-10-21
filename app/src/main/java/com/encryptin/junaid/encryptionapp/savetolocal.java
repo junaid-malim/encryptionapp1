@@ -21,5 +21,15 @@ public class savetolocal {
 
     }
 
+    public savetolocal(){
+    }
+
+    public String returnphoneno(){
+        return sharedPreferences.getString("PhoneKey","null");
+    }
+
+    public String returnuid(){
+        return sharedPreferences.getString("Uid","null");
+    }
 
 }
