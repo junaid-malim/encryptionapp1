@@ -39,7 +39,7 @@ public class doEncrypt {
         filename = "Encrypted_"+strDate;
 
         fileTypeset=fileType;
-        filepathofenc=saveencryptedto+filename+fileType;
+        filepathofenc=saveencryptedto+filename+"."+fileType;
 
         if(!(new File(saveencryptedto)).exists()) {
             new File(saveencryptedto).mkdir();

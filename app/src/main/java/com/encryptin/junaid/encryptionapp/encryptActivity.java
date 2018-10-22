@@ -67,7 +67,7 @@ public class encryptActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent shareIntent = new Intent();
                 shareIntent.setAction(Intent.ACTION_SEND);
-                shareIntent.putExtra(Intent.EXTRA_STREAM,FileProvider.getUriForFile(getApplicationContext(),"com.mydomain.fileprovider",new File(new doEncrypt().getFilepathofenc())));
+                shareIntent.putExtra(Intent.EXTRA_STREAM,FileProvider.getUriForFile(getApplicationContext(),"com.mydomain.fileprovider",new File(objenc.getFilepathofenc())));
                 shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 shareIntent.setType("image/*");
                 startActivityForResult(Intent.createChooser(shareIntent, getResources().getText(R.string.send_to)),1001);
