@@ -23,7 +23,7 @@ public class dodecrypt {
 
         FileInputStream fis=new FileInputStream(file);
 
-        FileOutputStream fos=new FileOutputStream(Environment.getExternalStorageDirectory()+File.separator+"Decrypted.png");
+        FileOutputStream fos=new FileOutputStream(Environment.getExternalStorageDirectory()+File.separator+"Decrypted.pdf");
         SecretKeySpec sks=new SecretKeySpec(key.getBytes(),"AES");
 
         Cipher cipher=Cipher.getInstance("AES/CBC/PKCS5Padding");

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Encryptionapp</string>
+    <string name="send_to">Share Via…</string>
 </resources>

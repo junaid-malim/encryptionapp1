@@ -23,19 +23,33 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class doEncrypt {
     Date date = new Date();
+    String filename,fileTypeset;
+    String key;
+    String filepathofenc;
 
-    public doEncrypt(Context context, File file,String key) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, InvalidAlgorithmParameterException {
+    public doEncrypt(){}
+
+    public doEncrypt(Context context, File file,String key,String fileType) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, InvalidAlgorithmParameterException {
 
         DateFormat dateFormat = new SimpleDateFormat("yyyymmddhhmms");
         String strDate = dateFormat.format(date);
 
+        String saveencryptedto=Environment.getExternalStorageDirectory()+File.separator+"Encryptedfiles"+File.separator;
+
+        filename = "Encrypted_"+strDate;
+
+        fileTypeset=fileType;
+        filepathofenc=saveencryptedto+filename+fileType;
+
+        if(!(new File(saveencryptedto)).exists()) {
+            new File(saveencryptedto).mkdir();
+        }
+
         FileInputStream fis=new FileInputStream(file);
 
-        FileOutputStream fos=new FileOutputStream(Environment.getExternalStorageDirectory()+File.separator+"encrypted.png");//File.separator+"Encryptedfiles"+File.separator+"Encrypted_"+strDate+".crypteapp");
+        FileOutputStream fos=new FileOutputStream(saveencryptedto+filename+"."+fileType);
 
         SecretKeySpec sks=new SecretKeySpec(key.getBytes(),"AES");
-
-        //TODO add TYPE AND PADDING
 
         Cipher cipher=Cipher.getInstance("AES/CBC/PKCS5Padding");
         cipher.init(Cipher.ENCRYPT_MODE,sks,new IvParameterSpec(
@@ -54,5 +68,17 @@ public class doEncrypt {
 
         Toast.makeText(context,"encrypted",Toast.LENGTH_LONG).show();
 
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public String getTokenid() {
+        return filename+"."+fileTypeset;
+    }
+
+    public String getFilepathofenc() {
+        return filepathofenc;
     }
 }

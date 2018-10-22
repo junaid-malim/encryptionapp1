@@ -3,18 +3,19 @@
     package="com.encryptin.junaid.encryptionapp">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:hardwareAccelerated="false"
-        android:largeHeap="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -23,25 +24,36 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignInActivity"/>
-        <activity android:name=".testActivity"/>
+        <activity android:name=".SignInActivity" />
 
         <service
             android:name=".FirebaseBackgroundService"
             android:exported="false"
-            android:process=":remote" >
+            android:process=":remote">
             <intent-filter>
                 <action android:name="com.example.bgfirebaseapp.FirebaseBackgroundService" />
             </intent-filter>
         </service>
 
-        <receiver android:name=".StartFirebaseAtBoot" >
+        <receiver android:name=".StartFirebaseAtBoot">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" >
-                </action>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.mydomain.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity android:name=".contactlistActivity" />
+        <activity android:name=".encryptActivity" />
+        <activity android:name=".decryptActivity"></activity>
     </application>
 
 </manifest>
