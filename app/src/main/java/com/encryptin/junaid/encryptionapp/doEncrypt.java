@@ -47,7 +47,7 @@ public class doEncrypt {
 
         FileInputStream fis=new FileInputStream(file);
 
-        FileOutputStream fos=new FileOutputStream(saveencryptedto+filename+"."+fileType);
+        FileOutputStream fos=new FileOutputStream(filepathofenc);
 
         SecretKeySpec sks=new SecretKeySpec(key.getBytes(),"AES");
 
@@ -68,10 +68,6 @@ public class doEncrypt {
 
         Toast.makeText(context,"encrypted",Toast.LENGTH_LONG).show();
 
-    }
-
-    public String getKey() {
-        return key;
     }
 
     public String getTokenid() {

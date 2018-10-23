@@ -14,12 +14,13 @@ public class sendkeytouser {
 
     DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReference("keyslist");
 
-    public sendkeytouser(final Context context, String tothisuserphno, String key) {
+    public sendkeytouser(final Context context, String tothisuserphno, final String key, String tokenid) {
 
-        databaseReference.child(tothisuserphno).setValue(key).addOnCompleteListener(new OnCompleteListener<Void>() {
+        databaseReference.child(tothisuserphno).child(tokenid).setValue(key).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(context,"key Tranmitted...",Toast.LENGTH_SHORT).show();
+                new savetolocal().setkey(context,key);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

@@ -35,7 +35,7 @@ public class SignInActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth=FirebaseAuth.getInstance();
 
-    EditText phonenoget,codenoget;
+    EditText nameget,phonenoget,codenoget;
     Button sendcodebtn,donebtn,resendcodebtn;
     Button countdowmtmr,disableddone;
 
@@ -49,6 +49,7 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
 
+        nameget=findViewById(R.id.nameget);
         phonenoget=findViewById(R.id.phonenoget);
         codenoget=findViewById(R.id.codenoget);
         sendcodebtn=findViewById(R.id.sendcodebtn);
@@ -136,11 +137,11 @@ public class SignInActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "signInWithCredential:success");
-                            new add_details(SignInActivity.this,phoneNumber);
+                            new add_details(SignInActivity.this,phoneNumber,nameget.getText().toString());
                             Intent intnt=new Intent(SignInActivity.this,MainActivity.class);
                             startActivity(intnt);
                             overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-                            new savetolocal(phoneNumber,SignInActivity.this);
+                            new savetolocal(nameget.getText().toString(),phoneNumber,SignInActivity.this);
 
                         } else {
 
@@ -153,9 +154,21 @@ public class SignInActivity extends AppCompatActivity {
                 });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(FirebaseAuth.getInstance().getCurrentUser()!=null){
+            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+        }
+    }
+
     private void sendverificationcode() {
 
         phoneNumber=phonenoget.getText().toString();
+
+        if(nameget.getText().toString()!=null){
+            Toast.makeText(getApplicationContext(),"Enter name so thats ur friend reconize u",Toast.LENGTH_LONG).show();
+        }
 
         if(phoneNumber.isEmpty()) {
             Toast.makeText(SignInActivity.this,"PLEASE ENTER A PHONE NO.",Toast.LENGTH_LONG).show();

@@ -12,12 +12,13 @@ class add_details {
     DatabaseReference database=FirebaseDatabase.getInstance().getReference("users");
     String uid;
 
-    public add_details(final Context context, String phoneNumber) {
+    public add_details(final Context context, String phoneNumber,String name) {
 
         if(FirebaseAuth.getInstance().getCurrentUser()!=null) {
             uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         }
-        database.child(phoneNumber).child("uid").setValue(uid);
+        database.child(uid).child("phonenumber").setValue(phoneNumber);
+        database.child(uid).child("name").setValue(name);
 
     }
 }

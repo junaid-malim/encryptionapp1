@@ -4,10 +4,10 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +30,7 @@ public class encryptActivity extends AppCompatActivity {
     String Filetype;
     File toenc;
     doEncrypt objenc;
+    String password=new Passwords().generateRandomPassword(16);
 
     TextView fileselected;
     @Override
@@ -53,8 +54,9 @@ public class encryptActivity extends AppCompatActivity {
         encryption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 try {
-                    objenc = new doEncrypt(encryptActivity.this,toenc,new Passwords().generateRandomPassword(16),Filetype);
+                    objenc = new doEncrypt(encryptActivity.this,toenc,password,Filetype);
 
                 } catch (IOException | NoSuchPaddingException | NoSuchAlgorithmException | InvalidAlgorithmParameterException | InvalidKeyException e) {
                     e.printStackTrace();
@@ -69,7 +71,7 @@ public class encryptActivity extends AppCompatActivity {
                 shareIntent.setAction(Intent.ACTION_SEND);
                 shareIntent.putExtra(Intent.EXTRA_STREAM,FileProvider.getUriForFile(getApplicationContext(),"com.mydomain.fileprovider",new File(objenc.getFilepathofenc())));
                 shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                shareIntent.setType("image/*");
+                shareIntent.setType("application/octet-stream");
                 startActivityForResult(Intent.createChooser(shareIntent, getResources().getText(R.string.send_to)),1001);
 
 
@@ -125,6 +127,8 @@ public class encryptActivity extends AppCompatActivity {
 
             if (requestCode==1001){
                 Intent intent=new Intent(encryptActivity.this,contactlistActivity.class);
+                intent.putExtra("key",password);
+                intent.putExtra("tokenid",objenc.getTokenid());
                 startActivity(intent);
             }
 
