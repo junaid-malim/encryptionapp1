@@ -19,11 +19,11 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 public class dodecrypt {
-    public dodecrypt(Context context,File file,String key) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, InvalidAlgorithmParameterException {
+    public dodecrypt(Context context,File file,String key,String filetype) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, InvalidAlgorithmParameterException {
 
         FileInputStream fis=new FileInputStream(file);
 
-        FileOutputStream fos=new FileOutputStream(Environment.getExternalStorageDirectory()+File.separator+"Decrypted.pdf");
+        FileOutputStream fos=new FileOutputStream(Environment.getExternalStorageDirectory()+File.separator+"Decrypted"+"."+filetype);
         SecretKeySpec sks=new SecretKeySpec(key.getBytes(),"AES");
 
         Cipher cipher=Cipher.getInstance("AES/CBC/PKCS5Padding");

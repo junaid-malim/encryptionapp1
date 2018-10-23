@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -42,7 +43,9 @@ public class contactlistActivity extends AppCompatActivity {
                 viewHolder.setOnClickListner(new ViewHolder.ClickListner() {
                     @Override
                     public void onItemClick(View view, int position) {
+                        TextView phonesinglelay =findViewById(R.id.phonesinglelay);
 
+                        new sendkeytouser(getApplicationContext(),phonesinglelay.getText().toString(),getIntent().getStringExtra("key"),getIntent().getStringExtra("tokenid"));
                     }
                 });
                 return viewHolder;

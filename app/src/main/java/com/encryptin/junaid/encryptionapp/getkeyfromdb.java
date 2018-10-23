@@ -29,5 +29,27 @@ public class getkeyfromdb {
             }
         });
 
+
+
+    }
+
+    public getkeyfromdb(){}
+
+    public String getkeyfromdbnow(final Context context,final String tokenid) {
+        db = FirebaseDatabase.getInstance().getReference("keyslist").child(new savetolocal().returnphoneno(context));
+        final String[] key = new String[1];
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                key[0] = dataSnapshot.child(tokenid).getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        return key[0];
     }
 }

@@ -39,7 +39,6 @@ public class decryptActivity extends AppCompatActivity {
 
         Button decryption=findViewById(R.id.startdecryption);
         Button Browse=findViewById(R.id.browse);
-        Button sharebtn=findViewById(R.id.sharebtn);
 
         fileselected = findViewById(R.id.fileselected);
 
@@ -53,27 +52,21 @@ public class decryptActivity extends AppCompatActivity {
         decryption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-            }
-        });
-
-        sharebtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent shareIntent = new Intent();
-                shareIntent.setAction(Intent.ACTION_SEND);
-                shareIntent.putExtra(Intent.EXTRA_STREAM,FileProvider.getUriForFile(getApplicationContext(),"com.mydomain.fileprovider",new File(objedec.getFilepathofenc())));
-                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                shareIntent.setType("application/octet-stream");
-                startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.send_to)));
-
+                String tokenid=new File(filePath).getName();
+                String password= new getkeyfromdb().getkeyfromdbnow(getApplicationContext(),tokenid);
+                try {
+                    objdec=new dodecrypt(getApplicationContext(), new File(filePath),password,getFileExtention(new File(filePath).getName()));
+                } catch (IOException | NoSuchPaddingException | InvalidKeyException | NoSuchAlgorithmException | InvalidAlgorithmParameterException e) {
+                    e.printStackTrace();
+                }
 
             }
         });
 
 
     }
+
+
 
     String getFileExtention(String name) {
         if(name == null || name.equals("")){
